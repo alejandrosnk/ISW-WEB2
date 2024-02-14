@@ -6,7 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Week 1 - Consume API</title>
   <script>
-
+    function getExchanges(){
+      getExchangeE();
+      getExchange();
+    }
     const completed = (response) => {
       const data = JSON.parse(response.target.responseText);
       document.getElementById('result').innerHTML = `Tipo de Cambio Dolares ${data.usd}`;
@@ -23,14 +26,31 @@
             ajaxRequestCurrencies.open("GET", `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}/usd.json`);
             ajaxRequestCurrencies.send();
     }
-    window.onload = getExchange;
+// -----------------------------------------------
+    const completedE = (response) => {
+      const data = JSON.parse(response.target.responseText);
+      document.getElementById('resultE').innerHTML = `Tipo de Cambio euros ${data.eur}`;
+    };
+
+    const errorE = () => console.log(this.responseText);
+    function getExchangeE() {
+      var selectElement = document.getElementById("countries");
+      var currency = selectElement.value;
+      const ajaxRequestCurrencies = new XMLHttpRequest(); // AJAX
+            ajaxRequestCurrencies.addEventListener("load", completedE);
+            ajaxRequestCurrencies.addEventListener("error", errorE);
+            ajaxRequestCurrencies.open("GET", `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${currency}/eur.json`);
+            ajaxRequestCurrencies.send();
+    }    
+    window.onload = getExchange, getExchangeE;
   </script>
 </head>
 
 <body>
-  <button onclick="getExchange();">Tipo de Cambio</button>
+  <button onclick="getExchanges();">Tipo de Cambio</button>
   <h3>Results:</h3>
   <div id="result"></div>
+  <div id="resultE"></div>
   <select name="countries" id="countries" onchange="getCurrency();">
   </select>
 
