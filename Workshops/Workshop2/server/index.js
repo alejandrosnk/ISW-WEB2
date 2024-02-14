@@ -11,20 +11,7 @@ app.use(cors({
   methods: "*"
 }));
 
-//routes
-app.get('/tipocambio', async (req, res) => {
-  try {
-      // const currency = req.query.currency;
-      const ajaxRequestCurrencies = new XMLHttpRequest(); // AJAX
-            ajaxRequestCurrencies.addEventListener("load", completedCurrencies);
-            ajaxRequestCurrencies.addEventListener("error", errorCurrencies);
-            ajaxRequestCurrencies.open("GET", "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/lak/usd.json");
-            ajaxRequestCurrencies.send();
-  } catch (error) {
-      console.error('Error al obtener el tipo de cambio:', error);
-      res.status(500).json({ error: 'Error al obtener el tipo de cambio' });
-  }
-});
+
 
 app.get('/paises', async (req, res) => {
   try {
@@ -37,4 +24,4 @@ app.get('/paises', async (req, res) => {
   }
 });
 
-app.listen(3001, () => console.log(`BBCR Exchange type service listening on port 3001!`))
+app.listen(3001, () => console.log(`BBCR Exchange type service listening on port 3001!`));
